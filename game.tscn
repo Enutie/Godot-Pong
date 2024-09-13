@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://q7fwi04enchj"]
+
+[ext_resource type="PackedScene" uid="uid://bh2pwhlhxo0ir" path="res://wall.tscn" id="1_pin2v"]
+[ext_resource type="PackedScene" uid="uid://c8gruq7n74cm2" path="res://PlayArea.tscn" id="2_217n3"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ycr0r"]
+b = Vector2(-1, 233)
+
+[node name="Game" type="Node2D"]
+
+[node name="Top wall" parent="." instance=ExtResource("1_pin2v")]
+
+[node name="Bottom wall" parent="." instance=ExtResource("1_pin2v")]
+position = Vector2(1153, 650)
+
+[node name="Play aria" parent="." instance=ExtResource("2_217n3")]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(14, 190)
+shape = SubResource("SegmentShape2D_ycr0r")
