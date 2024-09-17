@@ -1,12 +1,11 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-var velocity = Vector2.ZERO()
-export var speed = 200
+var speed = 500
 
-func _ready():
-	   set_velocity(Vector2(100,0))
-
-func _physics_process(delta):
-	  var collision_info = move_and_collide(velocity * speed * delta)
-	  if collision_info:
-			velocity = velocity.bounce(collision_info) 
+func _ready() -> void:
+	velocity = Vector2(-250,-250).normalized() * speed
+	
+func _physics_process(delta: float) -> void:
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.bounce(collision.get_normal())
