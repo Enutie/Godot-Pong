@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpwtg18cjg17h"]
+
+[ext_resource type="PackedScene" uid="uid://dbw02ntkaca4q" path="res://scenes/wall.tscn" id="1_dkure"]
+[ext_resource type="PackedScene" uid="uid://cr1u1npfhylmw" path="res://scenes/player.tscn" id="2_jik8j"]
+[ext_resource type="PackedScene" uid="uid://5inj5e2a0sck" path="res://scenes/ball.tscn" id="3_pcraw"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Player2" parent="." instance=ExtResource("2_jik8j")]
+position = Vector2(1149, 309)
+
+[node name="Top Wall" parent="." instance=ExtResource("1_dkure")]
+position = Vector2(1, 2)
+
+[node name="Bottom Wall" parent="." instance=ExtResource("1_dkure")]
+position = Vector2(0, 649)
+
+[node name="Player" parent="." instance=ExtResource("2_jik8j")]
+position = Vector2(-1, 276)
+
+[node name="Ball" parent="." instance=ExtResource("3_pcraw")]
+position = Vector2(130, 301)
