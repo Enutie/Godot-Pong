@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://uymocl4y0ytp"]
+[gd_scene load_steps=2 format=3 uid="uid://uymocl4y0ytp"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_wu0ki"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -7,3 +9,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wu0ki")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 31.0
+offset_right = 143.0
+offset_bottom = 95.0
+text = "Score:
+"
+
+[node name="Player1Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 50.0
+offset_right = 87.0
+offset_bottom = 73.0
+text = "0"
+
+[node name="Player2Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 50.0
+offset_right = 119.0
+offset_bottom = 73.0
+text = "0"
