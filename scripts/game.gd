@@ -1,20 +1,21 @@
 extends Node2D
 
-var ball = preload("res://scenes/ball.tscn")
-signal goal
+var ball_resource = preload("res://scenes/ball.tscn")
+var ball :CharacterBody2D = null
 
 func _ready():
 	ball = generate_ball()
-	# ball.connect(add_score) this wont compile
-	
-	
-func _process(delta: float) -> void:
-	pass
+
 	
 func generate_ball() -> CharacterBody2D:
-	var instance = ball.instantiate()
-	add_child(instance)
-	return instance
-
-func add_score():
-	print("Someone got a point!")
+	ball = ball_resource.instantiate()
+	ball.ball_exited.connect(_on_ball_exited)
+	add_child(ball)
+	ball.position = Vector2(600,300)
+	return ball
+	
+func _on_ball_exited():
+	print("Ball left the game at position:" , ball.position)
+	remove_child(ball)
+	ball.queue_free()
+	

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal ball_exited
+
 var speed = 500
 
 func _ready() -> void:
@@ -11,5 +13,3 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		velocity = velocity.bounce(collision.get_normal())
 		
-func _add_score():
-	print("called the function in the ball")
