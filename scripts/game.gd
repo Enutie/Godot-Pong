@@ -15,7 +15,6 @@ func generate_ball() -> CharacterBody2D:
 	return ball
 	
 func _on_ball_exited():
-	print("Ball left the game at position:" , ball.position)
 	if ball.position.x < 10 :
 		get_node("UI").increase_score(2)
 	else:
