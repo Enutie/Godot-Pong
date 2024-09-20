@@ -1,6 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://b46moc35cac8"]
+[gd_scene load_steps=8 format=3 uid="uid://b46moc35cac8"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_mu63t"]
+[ext_resource type="Shader" path="res://shader/menu.gdshader" id="2_8ij5v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cch0v"]
+shader = ExtResource("2_8ij5v")
+shader_parameter/a = 21.58
+shader_parameter/b = 1.0
+shader_parameter/c = 70.0
+shader_parameter/d = 50.0
+shader_parameter/speed = 0.2
+shader_parameter/threshold = 0.5
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_124od"]
 
@@ -23,6 +33,7 @@ grow_vertical = 2
 script = ExtResource("1_mu63t")
 
 [node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_cch0v")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
