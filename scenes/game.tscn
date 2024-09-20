@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpwtg18cjg17h"]
+[gd_scene load_steps=8 format=3 uid="uid://cpwtg18cjg17h"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_3acug"]
 [ext_resource type="PackedScene" uid="uid://dbw02ntkaca4q" path="res://scenes/wall.tscn" id="1_dkure"]
 [ext_resource type="PackedScene" uid="uid://cr1u1npfhylmw" path="res://scenes/player.tscn" id="2_jik8j"]
 [ext_resource type="PackedScene" uid="uid://6ku7glqlh2i1" path="res://scenes/play_area.tscn" id="4_t14oe"]
 [ext_resource type="PackedScene" uid="uid://uymocl4y0ytp" path="res://scenes/ui.tscn" id="5_51jdr"]
-[ext_resource type="PackedScene" uid="uid://c1finb7md6lk6" path="res://scenes/simple_audio.tscn" id="6_dx44n"]
+[ext_resource type="Script" path="res://scripts/popup_location.gd" id="6_8pkmc"]
+[ext_resource type="PackedScene" uid="uid://cjjoayrwdqdj1" path="res://scenes/floating_numbers.tscn" id="7_8wrr0"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_3acug")
@@ -26,4 +27,7 @@ position = Vector2(-1, 276)
 
 [node name="UI" parent="." instance=ExtResource("5_51jdr")]
 
-[node name="simple_audio" parent="." instance=ExtResource("6_dx44n")]
+[node name="PopupLocation" type="Marker2D" parent="."]
+position = Vector2(573, 138)
+script = ExtResource("6_8pkmc")
+hit_node = ExtResource("7_8wrr0")

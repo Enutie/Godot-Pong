@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <text x="100" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#0066cc" text-anchor="middle">Sia</text>
+  <circle cx="155" cy="45" r="10" fill="#ff6600"/>
+  <text x="100" y="110" font-family="Arial, sans-serif" font-size="24" font-weight="normal" fill="#0066cc" text-anchor="middle">STUDIOS</text>
+  <line x1="50" y1="120" x2="150" y2="120" stroke="#0066cc" stroke-width="2"/>
+</svg>

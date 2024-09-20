@@ -79,6 +79,13 @@ theme_override_fonts/font = SubResource("SystemFont_0e2rx")
 theme_override_font_sizes/font_size = 24
 text = "Play"
 
+[node name="Credits" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_0e2rx")
+theme_override_font_sizes/font_size = 24
+text = "Credits"
+
 [node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_tsv5g")
@@ -86,4 +93,5 @@ theme_override_font_sizes/font_size = 24
 text = "Quit"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

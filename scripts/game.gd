@@ -1,29 +1,116 @@
 extends Node2D
 
 var ball_resource = preload("res://scenes/ball.tscn")
-var ball :CharacterBody2D = null
-@onready var audio = $simple_audio
+var aw = preload("res://assets/sounds/SFX/aaaw.ogg")
+var yay = preload("res://assets/sounds/SFX/yay.ogg")
+var ball: CharacterBody2D = null
+var hit_counter := 0
+var color_rect: ColorRect
+var initial_ball_speed := 400.0  # Adjust this value to set the starting speed
+var speed_increase_factor := 1.05  # 5% increase per hit
+var pastel_colors = [
+	 Color("5F9EA0"),  # Muted Teal
+	Color("A17C7C"),  # Dusty Rose
+	Color("7C9A92"),  # Sage Green
+	Color("4A6B8A"),  # Muted Navy
+	Color("8E7F8D")   # Soft Plumple
+]
+var shake_tween: Tween = null
+var original_offset: Vector2 = Vector2.ZERO
 
 func _ready():
+	AudioPlayer.play_music()
+	color_rect = get_node("Play Area/ColorRect")
+	set_initial_background_color()
 	ball = generate_ball()
+	original_offset = get_viewport().canvas_transform.origin
 
-	
+func set_initial_background_color():
+	color_rect.color = pastel_colors[0]
+
 func generate_ball() -> CharacterBody2D:
 	ball = ball_resource.instantiate()
 	ball.ball_exited.connect(_on_ball_exited)
-	ball.position = Vector2(600,300)
+	ball.ball_hit.connect(_on_ball_hit)
+	ball.position = Vector2(600, 300)
+	
+	# Set initial ball speed
+	var initial_velocity = Vector2(initial_ball_speed, 0).rotated(randf_range(-PI/4, PI/4))
+	ball.velocity = initial_velocity
+	
 	add_child(ball)
 	return ball
-	
+
+func _on_ball_hit():
+	hit_counter += 1
+	$PopupLocation.popup(hit_counter)
+	update_background()
+	increase_ball_speed()
+
+func increase_ball_speed():
+	var current_speed = ball.velocity.length()
+	var new_speed = current_speed * speed_increase_factor
+	ball.velocity = ball.velocity.normalized() * new_speed
+
 func _on_ball_exited():
-	if ball.position.x < 10 :
+	if ball.position.x < 10:
 		get_node("UI").increase_score(2)
-		audio.play_sound("aw_sound")
+		AudioPlayer.play_FX(aw)
 	else:
-		var velocity = ball.velocity * -1
 		get_node("UI").increase_score(1)
-		audio.play_sound("yay_sound")
-	remove_child(ball)
+		AudioPlayer.play_FX(yay)
+	hit_counter = 0
+	remove_child.call_deferred(ball)
 	ball.queue_free()
 	ball = generate_ball()
-	
+
+func update_background():
+	var new_color: Color
+	var pulse_strength = 0.2
+	var pulse_duration = 0.3
+
+	if hit_counter > 20:
+		new_color = pastel_colors[4]  
+		pulse_strength = 0.4
+		pulse_duration = 0.2
+	elif hit_counter > 15:
+		new_color = pastel_colors[3]
+		pulse_strength = 0.3
+	elif hit_counter > 10:
+		new_color = pastel_colors[2]
+	elif hit_counter > 5:
+		new_color = pastel_colors[1]
+	else:
+		new_color = pastel_colors[0]
+
+	var tween = create_tween()
+	tween.tween_property(color_rect, "color", new_color.lightened(pulse_strength), pulse_duration)
+	tween.tween_property(color_rect, "color", new_color, pulse_duration)
+
+	if hit_counter > 15:
+		screen_shake(5, 0.2)
+
+func screen_shake(amount: float, duration: float):
+	var viewport = get_viewport()
+	if viewport:
+		# Cancel any ongoing shake
+		if shake_tween and shake_tween.is_valid():
+			shake_tween.kill()
+
+		shake_tween = create_tween()
+
+	# Shake
+	shake_tween.tween_property(viewport, "canvas_transform:origin", 
+		original_offset + Vector2(randf_range(-amount, amount), randf_range(-amount, amount)), 
+		duration / 2.0)
+
+	# Return to original position
+	shake_tween.tween_property(viewport, "canvas_transform:origin", 
+		original_offset, 
+		duration / 2.0)
+
+	# Ensure we reset to the original position when the tween completes
+	shake_tween.connect("finished", Callable(self, "_on_shake_finished"))
+
+func _on_shake_finished():
+	get_viewport().canvas_transform.origin = original_offset
