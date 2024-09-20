@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpwtg18cjg17h"]
+[gd_scene load_steps=9 format=3 uid="uid://cpwtg18cjg17h"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_3acug"]
 [ext_resource type="PackedScene" uid="uid://dbw02ntkaca4q" path="res://scenes/wall.tscn" id="1_dkure"]
 [ext_resource type="PackedScene" uid="uid://cr1u1npfhylmw" path="res://scenes/player.tscn" id="2_jik8j"]
 [ext_resource type="PackedScene" uid="uid://6ku7glqlh2i1" path="res://scenes/play_area.tscn" id="4_t14oe"]
+[ext_resource type="Script" path="res://scripts/ai.gd" id="4_uhe76"]
 [ext_resource type="PackedScene" uid="uid://uymocl4y0ytp" path="res://scenes/ui.tscn" id="5_51jdr"]
 [ext_resource type="Script" path="res://scripts/popup_location.gd" id="6_8pkmc"]
 [ext_resource type="PackedScene" uid="uid://cjjoayrwdqdj1" path="res://scenes/floating_numbers.tscn" id="7_8wrr0"]
@@ -15,6 +16,7 @@ script = ExtResource("1_3acug")
 
 [node name="Player2" parent="." instance=ExtResource("2_jik8j")]
 position = Vector2(1149, 309)
+script = ExtResource("4_uhe76")
 
 [node name="Top Wall" parent="." instance=ExtResource("1_dkure")]
 position = Vector2(1, 2)
